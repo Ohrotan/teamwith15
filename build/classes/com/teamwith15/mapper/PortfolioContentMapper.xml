@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.teamwith15.dao.PortfolioContentDAO" >
+  	<resultMap id="portfolioContent" type="PortfolioContentDTO" >
+		<id property="portfolioId" column="portfolio_id" jdbcType="VARCHAR"/>
+		<id property="elementId" column="element_id" jdbcType="VARCHAR"/>
+		<id property="contentOrder" column="content_order" jdbcType="INTEGER"/>
+		<id property="layoutId" column="layout_id" jdbcType="VARCHAR"/>
+		<id property="elementName" column="element_name" jdbcType="VARCHAR"/>
+		<id property="elementContent" column="element_content" jdbcType="VARCHAR"/>
+	</resultMap>  
+	
+	<insert id="addPortfolioContent">
+		insert into portfolio_content_tb values(#{portfolioId},#{elementId},#{contentOrder},#{layoutId},#{elementName},#{elementContent})
+	</insert>
+	<update id="updatePortfolioContent">
+		update portfolio_content_tb set element_name=#{elementName},element_content=#{elementContent},content_order=#{contentOrder} where element_id=#{elementId}
+	</update>
+	<delete id="removePortfolioContentByPortfolioContentId">
+		delete from portfolio_content_tb where element_id=#{elementId}
+	</delete>
+	<delete id="removePortfolioContentByPortfolioId">
+		delete from portfolio_content_tb where portfolio_id=#{portfolioId}
+	</delete>
+	<select id="searchPortfolioContentByPortfolioId" resultMap="portfolioContent">
+		select * from portfolio_content_tb where portfolio_id=#{portfolioId}
+	</select>
+	<select id="searchPortfolioContentByElementId" resultMap="portfolioContent">
+		select * from portfolio_content_tb where element_id=#{elementId}
+	</select>
+  </mapper> 

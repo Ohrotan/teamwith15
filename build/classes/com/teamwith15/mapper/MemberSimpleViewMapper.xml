@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.teamwith15.dao.MemberSimpleViewDAO" >
+  	<resultMap id="memberSimpleView" type="MemberSimpleViewVO" >
+		<id property="memberId" column="member_id" jdbcType="VARCHAR"/>
+		<id property="memberPic" column="member_pic" jdbcType="VARCHAR"/>
+		<id property="memberName" column="member_name" jdbcType="VARCHAR"/>
+		<id property="roleId" column="role_id" jdbcType="VARCHAR"/>
+		<id property="memberRegisterDate" column="member_register_date" jdbcType="DATE"/>
+		<id property="portfolioTeamName" column="region_id1" jdbcType="VARCHAR"/>
+		<id property="portfolioPeopleNum" column="region_id2" jdbcType="VARCHAR"/>
+		<id property="totalPraiseCnt" column="total_praise_cnt" jdbcType="INTEGER"/>
+	</resultMap>  
+	
+	<select id="searchMemberSimpleList" resultMap="memberSimpleView">
+		select * from member_simple_view order by total_praise_cnt desc
+	</select>
+	<select id="searchMemberByMemberId" resultMap="memberSimpleView">
+		select * from member_simple_view where member_id=#{memberId}
+	</select>
+	<select id="searchMemberByRegion" resultMap="memberSimpleView">
+		select * from member_simple_view where region_id_1=#{regionId} OR region_id_2=#{regionId}
+	</select>
+  </mapper> 

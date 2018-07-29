@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 작성자 : 황규진 -->
+<mapper namespace="com.teamwith15.dao.InterviewAnswerDAO">
+	<resultMap type="com.teamwith15.dto.InterviewAnswerDTO" id="interviewAnswer">
+		<id property="interviewAnswerId" column="interview_answer_id" jdbcType="VARCHAR"/>
+		<id property="interviewQuestionId" column="interview_question_id" jdbcType="VARCHAR"/>
+		<id property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+		<id property="interviewAnswerContent" column="interview_answer_content" jdbcType="VARCAHR"/>
+	</resultMap>
+	<!-- 간단 면접 답변 추가 -->
+	<insert id="addInterviewAnswer" parameterType="interviewAnswer">
+		insert into interview_answer_tb values(#{interviewAnswerId},#{interviewQuestionId},#{application_id},#{interviewAnswerContent})
+	</insert>
+	<!-- 간단 면접 답변 삭제 -->
+	<delete id="removeInterviewAnswerByInterviewAnswerId" parameterType="string">
+		delete from interview_answer_tb where interview_answer_id=#{interviewAnswerId}
+	</delete>
+	<!-- 간단 면접 답변 내용 수정 -->
+	<update id="updateInterviewAnswer" parameterType="interviewAnswer">
+		update interview_answer_tb set interview_answer_content=#{interviewAnswerContent} where interview_answer_id=#{interviewAnswerId}
+	</update>
+	<!-- 간단 면접 답변에 대한 모든 속성 수정 -->
+	<update id="updateInterviewAnswerAll" parameterType="interviewAnswer">
+		update interview_answer_tb set interview_answer_id=#{interviewAnswerId}, interview_question_id=#{interviewQuestionId}, application_id=#{applicationId}, interview_answer_content=#{interviewAnswerContent} where interview_answer_id=#{interviewAnswerId}
+	</update>
+	<!-- 하나의 간단면접에 대한 특정 답변을 검색 (단일) -->
+	<select id="searchInterviewAnswerByInterviewAnswerId" parameterType="string" resultMap="interviewAnswer">
+		select * from interview_answer_tb where interview_answer_id=${interviewAnswerId}
+	</select>
+	<!-- 하나의 간단면접에 대한 모든 답변을 검색 (다중) -->
+	<select id="searchInterviewAnswerByInterviewQuestionId" parameterType="string" resultMap="interviewAnswer">
+		select * from interview_answer_tb where interview_question_id=${interviewQuestionId}
+	</select>
+	<!-- 하나의 지원에 대한 모든 간단 면접 답변 검색 (다중) -->
+	<select id="searchInterviewAnswerByApplicationId" parameterType="string" resultMap="interviewAnswer">
+		select * from interview_answer_tb where application_id=${applicationId}
+	</select>
+	<!-- 하나의 지원에 대한 하나의 간단 면접 질문에 대한 답변 검색 (단일) -->
+	<select id="searchInterviewAnswer" parameterType="interviewAnswer" resultMap="interviewAnswer">
+		select * from interview_answer_tb where interview_question_id=${interviewQuestionId} and application_id=${applicationId}
+	</select>
+	<!-- 모든 간단 면접 질문 레코드 불러오기 -->
+	<select id="searchInterviewAnswerAll" resultMap="interviewAnswer">
+		select * from interview_answer_tb
+	</select>
+</mapper>

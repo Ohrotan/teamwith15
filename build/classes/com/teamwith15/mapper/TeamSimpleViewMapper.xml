@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 작성자 : 황규진 -->
+<mapper namespace="com.teamwith15.dao.TeamSimpleViewDAO">
+	<resultMap type="com.teamwith15.vo.TeamSimpleViewVO" id="teamSimpleView"></resultMap>
+	<!-- 최근 등록 팀 조회 -->
+	<select id="searchRecentTeamSimpleView" resultMap="teamSimpleView">
+		select * from team_simple_view order by team_update_date desc
+	</select>
+	<!-- 나의 팀 조회 -->
+	<select id="searchMyTeamSimpleView" parameterType="string" resultMap="teamSimpleView">
+		select * from team_simple_view where member_id=#{memberId} order by team_update_date desc
+	</select>
+	<!-- 모든 팀 간략 정보 불러오기 -->
+	<select id="searchTeamSimpleViewAll" resultMap="teamSimpleView">
+		select * from team_simple_view
+	</select>
+	<!-- 팀 검색 (책방식대로 따라하기~)-->
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 작성자 : 황규진 -->
+<mapper namespace="com.teamwith15.dao.RequireSkillTeamViewDAO">
+	<resultMap type="com.teamwith15.vo.RequireSkillTeamViewVO" id="requireSkillTeamView"></resultMap>
+	<!-- 팀에 해당하는 모든 모집의 요구 기술 정보 가져오기 -->
+	<select id="searchRequireSkillTeamViewByTeamId" parameterType="string" resultMap="requireSkillTeamView">
+		select * from require_skill_team_view where team_id=#{teamId}
+	</select>
+	<!-- 특정 모집의 요구 기술 정보 가져오기 -->
+	<select id="searchRequireSkillTeamViewByRecruitId" parameterType="string" resultMap="requireSkillTeamView">
+		select * from require_skill_team_view where recruit_id=#{recruitId}
+	</select>
+	<!-- require_skill_team_view의 모든 레코드 불러오기 -->
+	<select id="searchRequireSkillTeamViewAll" resultMap="requireSkillTeamView">
+		select * from require_skill_team_view
+	</select>
+</mapper>
